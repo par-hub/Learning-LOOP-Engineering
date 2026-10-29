@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f2">
+    <title>Self-Correcting Agent Loop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+    <main class="page-shell">
+        <header class="topbar"><a class="brand" href="/" aria-label="Agent Loop home"><span class="brand-mark">↻</span><span>loop<span class="brand-muted">.lab</span></span></a><span class="top-note"><span class="live-dot"></span> Multi-agent workspace</span></header>
+
+        <section class="hero">
+            <div class="hero-copy-block">
+                <span class="eyebrow"><span class="eyebrow-line"></span> A self-correcting AI workflow</span>
+                <h1>Better answers,<br><span>one loop at a time.</span></h1>
+                <p>Watch a team of agents draft, review, and refine an answer until it’s ready.</p>
+            </div>
+            <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit-core">↻</div><span class="orbit-chip chip-writer">✎ &nbsp;writer</span><span class="orbit-chip chip-reviewer">⌕ &nbsp;reviewer</span><span class="orbit-chip chip-reviser">↗ &nbsp;reviser</span></div>
+        </section>
+
+        <section class="workflow" aria-label="Agent workflow">
+            <div class="workflow-step"><span class="step-icon writer-icon">✎</span><div><strong>Writer</strong><small>Creates a first draft</small></div></div><span class="step-connector">→</span>
+            <div class="workflow-step"><span class="step-icon reviewer-icon">⌕</span><div><strong>Reviewer</strong><small>Checks the answer</small></div></div><span class="step-connector">→</span>
+            <div class="workflow-step"><span class="step-icon reviser-icon">↗</span><div><strong>Reviser</strong><small>Improves the draft</small></div></div>
+            <span class="workflow-return">↶ &nbsp; Review repeats as needed</span>
+        </section>
+
+        <section class="input-card">
+            <div class="input-title"><span class="section-kicker">START A RUN</span><label for="topic">What should the agents explain?</label><p>Give the workflow a topic and follow its progress below.</p></div>
+            <form id="topicForm" class="input-row">
+                <div class="input-wrap"><span aria-hidden="true">✦</span><input id="topic" name="topic" type="text" value="{{ example_topic }}" maxlength="300" minlength="2" autocomplete="off" required aria-describedby="topicHint"></div>
+                <button id="runButton" type="submit"><span class="button-label">Run agent loop</span><span class="button-arrow" aria-hidden="true">→</span></button>
+            </form>
+            <p id="topicHint" class="hint">Try “Explain recursion” or “What is retrieval-augmented generation?”</p>
+        </section>
+
+        <div id="status" class="status hidden" role="status" aria-live="polite"></div>
+        <section id="results" class="results hidden" aria-live="polite">
+            <div class="section-heading"><div><span class="section-kicker">THE PROCESS</span><h2>Your agent run</h2></div><div id="summaryBadge" class="summary-badge"></div></div>
+            <div id="timeline" class="timeline"></div>
+            <article class="final-card"><div class="final-heading"><div><span class="section-kicker">THE RESULT</span><h2>Final answer</h2></div><span id="finalDecision" class="decision"></span></div><div id="finalAnswer" class="answer"></div></article>
+        </section>
+        <footer>Built with <span>FastAPI</span>, <span>LangGraph</span> &amp; Groq</footer>
+    </main>
+    <script src="{{ url_for('static', path='/app.js') }}" defer></script>
+</body>
+</html>
